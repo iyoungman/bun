@@ -1,0 +1,9 @@
+rootProject.name = 'blog-update-news'
+include 'board-api'
+include 'user-api'
+include 'blog-api'
+include 'front'
+include 'eureka-server'
+include 'zuul-api-gateway'
+include 'auth-server'
+
