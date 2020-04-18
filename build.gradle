@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compile project(':auth-server')
+    compile project(':board-api')
+    compile project(':blog-api')
+    compile project(':eureka-server')
+    compile project(':front')
+    compile project(':user-api')
+    compile project(':zuul-api-gateway')
+}

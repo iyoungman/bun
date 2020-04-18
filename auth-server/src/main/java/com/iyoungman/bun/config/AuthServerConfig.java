@@ -1,10 +1,7 @@
 package com.iyoungman.bun.config;
 
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * Created by iyoungman on 2020-04-16.
@@ -26,7 +21,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private ClientDetailsService clientDetailsService;
@@ -39,7 +34,6 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // 인증 과정 endpoint에 대한 설정을 해줍니다.
         super.configure(endpoints);
         endpoints.accessTokenConverter(jwtAccessTokenConverter())
                 .authenticationManager(authenticationManager);
@@ -47,23 +41,21 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // oauth_client_details 테이블에 등록된 사용자로 조회합니다.
         clients.withClientDetails(clientDetailsService);
     }
 
     @Bean
     @Primary
     public JdbcClientDetailsService JdbcClientDetailsService(DataSource dataSource) {
-        // Jdbc(H2 데이터베이스)를 이용한 Oauth client 정보등록을 위한 설정입니다.
         return new JdbcClientDetailsService(dataSource);
     }
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        // JWT key-value 방식을 사용하기 위한 설정입니다.
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
         accessTokenConverter.setSigningKey(resourceServerProperties.getJwt().getKeyValue());
 
         return accessTokenConverter;
     }
+
 }

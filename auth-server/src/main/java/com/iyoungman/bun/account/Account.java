@@ -7,6 +7,7 @@ package com.iyoungman.bun.account;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Account {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(unique = true)
     private String username;

@@ -21,13 +21,12 @@ public class DataInitRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        PasswordEncoder passwordEncoder;
-        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         Account newUser = Account.builder()
                 .username("test")
                 .password(passwordEncoder.encode("pw"))
-                .role("ADMIN")
+                .role("USER")
                 .build();
 
         accountRepository.save(newUser);
