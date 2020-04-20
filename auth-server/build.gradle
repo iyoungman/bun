@@ -37,7 +37,9 @@ dependencies {
     
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     
-    runtime 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
+    
+    implementation 'mysql:mysql-connector-java'
 }
 
 dependencyManagement {

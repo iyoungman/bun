@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+src/main/resources/application-common.properties
+src/main/resources/application-test.properties
+src/main/resources/application-real.properties
+
